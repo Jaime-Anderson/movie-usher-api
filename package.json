@@ -1,0 +1,21 @@
+{
+  "name": "movie-usher",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jaime-Anderson/movie-usher-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jaime-Anderson/movie-usher-api/issues"
+  },
+  "homepage": "https://github.com/Jaime-Anderson/movie-usher-api#readme",
+  "main": "server.js",
+  "description": ""
+}
