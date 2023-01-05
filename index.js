@@ -52,7 +52,7 @@ let topMovies = [
 app.use(morgan('common'));
 
 //use express.static to serve documentation.html file from public folder
-app.use('/documentation.html', express.static('public'));
+app.use(express.static('public'));
 
 //create an Express GET route at endpoint "/" with textual response
 app.get('/', (req, res) => {
@@ -64,6 +64,7 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
+//create error-handling middleware function to log all app-level errors to terminal
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('There is a problem.');
