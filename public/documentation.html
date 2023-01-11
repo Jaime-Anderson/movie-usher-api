@@ -5,11 +5,143 @@
         <title>Documentation</title>
     </head>
     <body>
-        <h1>Documentation Page</h1>
-        <p>This API was created to store data about different movies for 
-            an upcoming app called "movieUsher", a web application 
-            that provides users with information about movies, directors, 
-            and genres. 
-        </p>
+        <h1>Documentation</h1>
+        <h2>Movie Usher API</h2>
+        <p>Returns relevent movie information matching a specified query.</p>
+        <h3>URL Endpoints</h3>
+        <table>
+            <tr>
+                <th>Endpoint Return Description</th>
+                <th>Endpoint URL</th>
+                <th>Method Type</th>
+                <th>Query Parameters</th>
+                <th>Format of Request Body Data</th> <!--???-->
+                <th>Format of Response</th>
+            </tr>
+            <tr>
+                <td>List all movies</td>
+                <td>/movies</td>
+                <td>GET</td>
+                <td>n/a</td>
+                <td><!--Format of Request Here--></td>
+                <td>A JSON object holding data about all movies: <br>
+                    { <br>
+                    "Title": <br>
+                    "Description": <br>
+                    "Genre":  {<br>
+                        "Name": <br>
+                        "Description": <br>
+                    } <br>
+                    "Director": { <br>
+                        "Name: <br>
+                        "Bio": <br>
+                        "Birth": <br>
+                    } <br>
+                    "ImageURL": <br>
+                    "Featured": (True/false) <br>
+                </td>
+            </tr>
+            <tr>
+                <td>Return data about (description, genre, director, image URL, 
+                    whether featured or not) about a single movie by title to the user</td>
+                <td>/movies/:title</td>
+                <td>GET</td>
+                <td>:title</td>
+                <td><!--Format of Request Here--></td>
+                <td>A JSON object holding data about all movies: <br>
+                    { <br>
+                    "Title": <br>
+                    "Description": <br>
+                    "Genre":  {<br>
+                        "Name": <br>
+                        "Description": <br>
+                    } <br>
+                    "Director": { <br>
+                        "Name": <br>
+                        "Bio": <br>
+                        "Birth": <br>
+                    } <br>
+                    "ImageURL": <br>
+                    "Featured": (True/false) <br>
+                </td>
+            </tr>
+            <tr>
+                <td>Return data about a genre (description) by title (e.g., "Thriller")</td>
+                <td>/movies/genre/:genreName</td>
+                <td>GET</td>
+                <td>:Name</td>
+                <td><!--Format of Request Here--></td>
+                <td>A JSON object holding data about a specified movie genre:<br>
+                    "Genre":  {<br>
+                        "Name": <br>
+                        "Description": <br>
+                    } <br>
+                </td>
+            </tr>
+            <tr>
+                <td>Return data about a director (bio, birth year, death year) by name</td>
+                <td>/movies/directors/:directorName</td>
+                <td>GET</td>
+                <td>:Name</td>
+                <td><!--Format of Request Here--></td>
+                <td>A JSON object holding data about a specified director: <br>
+                    "Director": { <br>
+                        "Name": <br>
+                        "Bio": <br>
+                        "Birth": <br>
+                    } <br>
+                </td>
+            </tr>
+            <tr>
+                <td>Allow new users to register</td>
+                <td>/users</td>
+                <td>POST</td>
+                <td>n/a</td>
+                <td>A JSON object holding data about new user: <br>
+                    { <br>
+                        "name": , <br>
+                        "favoriteMovies": [] <br>
+                    } <br>
+                </td>
+                <td>Text sent indicating successful registration</td>
+            </tr>
+            <tr>
+                <td>Allow users to update user info (username)</td>
+                <td>/users/:id</td>
+                <td>PUT</td>
+                <td>:id</td>
+                <td>A JSON object holding information of user to update: <br>
+                    { <br>
+                        "name": (updated name here) <br>
+                        "favoriteMovies": [] <br>
+                    } <br>
+                </td>
+                <td>Text sent indicating successful update to account</td>
+            </tr>
+            <tr>
+                <td>Allow users to add a movie to list of favorites</td>
+                <td>/users/:id/:movieTitle</td>
+                <td>POST</td>
+                <td>:id, :movieTitle</td>
+                <td><!--Format of Request Here--></td>
+                <td>Text sent indicating movie was added to list of favorites</td>
+            </tr>
+            <tr>
+                <td>Allow users to remove a movie from their list of favorites</td>
+                <td>/users/:id/:movieTitle</td>
+                <td>DELETE</td>
+                <td>:id, :movieTitle</td>
+                <td><!--Format of Request Here--></td>
+                <td>Text sent indicating movie was removed from list of favorites</td>
+            </tr>
+            <tr>
+                <td>Allow existing users to deregister</td>
+                <td>/users/:id</td>
+                <td>DELETE</td>
+                <td>:id</td>
+                <td><!--Format of Request Here--></td>
+                <td>Text sent indicating successful deregistration</td>
+            </tr>
+        </table>
     </body>
 </html>
