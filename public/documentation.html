@@ -45,11 +45,11 @@
             <tr>
                 <td>Return data about (description, genre, director, image URL, 
                     whether featured or not) about a single movie by title to the user</td>
-                <td>/movies/:title</td>
+                <td>/movies/:Title</td>
                 <td>GET</td>
-                <td>:title</td>
+                <td>:Title</td>
                 <td><!--Format of Request Here--></td>
-                <td>A JSON object holding data about all movies: <br>
+                <td>A JSON object holding data about single movie: <br>
                     { <br>
                     "Title": <br>
                     "Description": <br>
@@ -68,7 +68,7 @@
             </tr>
             <tr>
                 <td>Return data about a genre (description) by title (e.g., "Thriller")</td>
-                <td>/movies/genre/:genreName</td>
+                <td>/movies/genre/:Name</td>
                 <td>GET</td>
                 <td>:Name</td>
                 <td><!--Format of Request Here--></td>
@@ -81,7 +81,7 @@
             </tr>
             <tr>
                 <td>Return data about a director (bio, birth year, death year) by name</td>
-                <td>/movies/directors/:directorName</td>
+                <td>/movies/director/:Name</td>
                 <td>GET</td>
                 <td>:Name</td>
                 <td><!--Format of Request Here--></td>
@@ -100,7 +100,11 @@
                 <td>n/a</td>
                 <td>A JSON object holding data about new user: <br>
                     { <br>
-                        "name": , <br>
+                        "ID": integer, <br>
+                        "Username": String <br>
+                        "Password": String <br>
+                        "Email": String <br>
+                        "Birthday": Date
                         "favoriteMovies": [] <br>
                     } <br>
                 </td>
@@ -108,12 +112,18 @@
             </tr>
             <tr>
                 <td>Allow users to update user info (username)</td>
-                <td>/users/:id</td>
+                <td>/users/:Username</td>
                 <td>PUT</td>
-                <td>:id</td>
+                <td>:Username</td>
                 <td>A JSON object holding information of user to update: <br>
                     { <br>
-                        "name": (updated name here) <br>
+                        "Username": String, <br>
+                        (required) <br>
+                        "Password": String, <br>
+                        (required) <br>
+                        "Email": String, <br>
+                        (required) <br>
+                        "Birthday": Date <br>
                         "favoriteMovies": [] <br>
                     } <br>
                 </td>
@@ -121,25 +131,25 @@
             </tr>
             <tr>
                 <td>Allow users to add a movie to list of favorites</td>
-                <td>/users/:id/:movieTitle</td>
+                <td>/users/:Username/movies/:movieID</td>
                 <td>POST</td>
-                <td>:id, :movieTitle</td>
+                <td>:Username, :movieID</td>
                 <td><!--Format of Request Here--></td>
                 <td>Text sent indicating movie was added to list of favorites</td>
             </tr>
             <tr>
                 <td>Allow users to remove a movie from their list of favorites</td>
-                <td>/users/:id/:movieTitle</td>
+                <td>/users/:Username/movies/:movieID</td>
                 <td>DELETE</td>
-                <td>:id, :movieTitle</td>
+                <td>:Username, :movieID</td>
                 <td><!--Format of Request Here--></td>
                 <td>Text sent indicating movie was removed from list of favorites</td>
             </tr>
             <tr>
                 <td>Allow existing users to deregister</td>
-                <td>/users/:id</td>
+                <td>/users/:Username</td>
                 <td>DELETE</td>
-                <td>:id</td>
+                <td>:Username</td>
                 <td><!--Format of Request Here--></td>
                 <td>Text sent indicating successful deregistration</td>
             </tr>
