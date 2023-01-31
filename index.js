@@ -17,7 +17,7 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-mongoose.connect('mongodb://localhost:27017/cfdb', { useNewUrlParser:
+mongoose.connect('mongodb://0.0.0.0:27017/cfdb', { useNewUrlParser:
 true, useUnifiedTopology: true });
 mongoose.set('strictQuery', true);
 
