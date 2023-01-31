@@ -1,32 +1,59 @@
 // require express, bodyParser, uuid,
 const express = require('express'),
     bodyParser = require('body-parser'),
-    uuid = require('uuid');
+    uuid = require('uuid'),
+    morgan = require('morgan');
 
-const morgan = require('morgan');
-const app = express();    
+const app = express();  
+//apply bodyParser as middleware function
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 
 mongoose.connect('mongodb://localhost:27017/cfdb', { useNewUrlParser:
-true, userUnifiedTopology: true });
+true, useUnifiedTopology: true });
 mongoose.set('strictQuery', true);
-
-//apply bodyParser as middleware function
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-//use Morgan to log all requests
-app.use(morgan('common'));
 
 //use express.static to serve documentation.html file from public folder
 app.use(express.static('public'));
 
+//use Morgan to log all requests
+app.use(morgan('common'));
+
+//Welcome response
 app.get('/', (req, res) => {
     res.send('Welcome to Movie Usher!');
+});
+
+//Return a list of all movies
+app.get('/movies', (req, res) => {
+    Movies.find()
+        .then((movies) => {
+            res.json(movies);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
+});
+
+//Return data about a single movie by title
+app.get('/movies/:Title', (req, res) => {
+    Movies.findOne({ Title: req.params.Title })
+        .then((movie) => {
+            res.status(201).json(movie);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
 //CREATE
@@ -149,45 +176,29 @@ app.delete('/users/:Username', (req, res) => {
 });
 
 //READ
-app.get('/movies', (req, res) => {
-    res.status(200).json(movies);
+//return data about a genre
+app.get('/movies/genre/:Name', (req, res) => {
+    Movies.findOne({ 'Genre.Name': req.params.Name})
+        .then((movies) => {
+            res.send(movies.Genre);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
 //READ
-app.get('/movies/:title', (req, res) => {
-    //object destructuring format
-    const { title } = req.params;
-    const movie = movies.find( movie => movie.Title === title);
-
-    if (movie) {
-        res.status(200).json(movie);
-    }else {
-        res.status(400).send('No such movie.')
-    }
-});
-
-//READ
-app.get('/movies/genre/:genreName', (req, res) => {
-    const { genreName } = req.params;
-    const genre = movies.find( movie => movie.Genre.Name === genreName ).Genre;
-
-    if (genre) {
-        res.status(200).json(genre);
-    }else {
-        res.status(400).send('No such genre.')
-    }
-});
-
-//READ
-app.get('/movies/directors/:directorName', (req, res) => {
-    const { directorName } = req.params;
-    const director = movies.find( movie => movie.Director.Name === directorName ).Director;
-
-    if (director) {
-        res.status(200).json(director);
-    }else {
-        res.status(400).send('No such genre.')
-    }
+//return data about a director
+app.get('/movies/director/:Name', (req, res) => {
+  Movies.findOne({ 'Director.Name': req.params.directorName })
+    .then((movies) => {
+        res.send(movies.Director);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
 });
 
 //create error-handling middleware function to log all app-level errors to terminal
