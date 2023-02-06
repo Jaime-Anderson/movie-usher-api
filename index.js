@@ -82,7 +82,7 @@ app.get('/movies/:Title', passport.authenticate('jwt', {session: false }), (req,
     Email: String,
     Birthday: Date
 } */
-app.post('/users', passport.authenticate('jwt', {session: false }), (req, res) => {
+app.post('/users', (req, res) => {
     Users.findOne({ Username: req.body.Username })
         .then((user) => {
             if (user) {
