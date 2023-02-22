@@ -41,8 +41,14 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
+/* the following code connects to the local database and can be used for testing purposes.
 mongoose.connect('mongodb://0.0.0.0:27017/cfdb', { useNewUrlParser:
+true, useUnifiedTopology: true });*/
+
+//the code below connects to the online database
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser:
 true, useUnifiedTopology: true });
+
 mongoose.set('strictQuery', true);
 
 //use express.static to serve documentation.html file from public folder
