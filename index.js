@@ -1,8 +1,6 @@
-// require express, bodyParser, uuid,
-const express = require('express'),
-    bodyParser = require('body-parser'),
-    uuid = require('uuid'),
-    morgan = require('morgan');
+// require express & morgan
+const express = require("express");
+const morgan = require("morgan");
 
 const app = express();  
 
@@ -24,14 +22,14 @@ app.use(cors({
     }
 }));
 
+//apply bodyParser as middleware function
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
-
-//apply bodyParser as middleware function
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 const mongoose = require('mongoose');
 const Models = require('./models.js');
@@ -76,13 +74,14 @@ app.get('/movies', passport.authenticate('jwt', {session: false }), (req, res) =
 
 app.get('/users', passport.authenticate('jwt', {session: false }), (req, res) => {
     Users.find()
-        .then((users) => {
-            res.json(users);
-        })
-        .catch((err) => {
-            console.error(err);
-            res.status(500).send('Error: ' + err);
-        });
+      .populate("Favorites")
+      .then((users) => {
+        res.json(users);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
 });
 
 //Return data about a single movie by title
