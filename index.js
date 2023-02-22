@@ -38,8 +38,8 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
+const Genre = Models.Genre;
+const Director = Models.Director;
 
 /* the following code connects to the local database and can be used for testing purposes.
 mongoose.connect('mongodb://0.0.0.0:27017/cfdb', { useNewUrlParser:
@@ -58,7 +58,7 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 
 //Welcome response
-app.get('/', passport.authenticate('jwt', {session: false }), (req, res) => {
+app.get('/', (req, res) => {
     res.send('Welcome to Movie Usher!');
 });
 
