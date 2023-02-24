@@ -243,7 +243,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', {session: false }), 
 app.get('/movies/genre/:Name', passport.authenticate('jwt', {session: false }), (req, res) => {
     Movies.findOne({ 
         'Genre.Name': {
-            $regex: '^@{req.params.Name}$',
+            $regex: '^${req.params.Name}$',
             $options: 'i',
         },
         })
