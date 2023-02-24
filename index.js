@@ -241,9 +241,15 @@ app.delete('/users/:Username', passport.authenticate('jwt', {session: false }), 
 //READ
 //return data about a genre
 app.get('/movies/genre/:Name', passport.authenticate('jwt', {session: false }), (req, res) => {
-    Movies.findOne({ 'Genre.Name': req.params.Name})
+    Movies.findOne({ 
+        'Genre.Name': {
+            $regex: '^@{req.params.Name}$',
+            $options: 'i',
+        },
+        })
         .then((movies) => {
-            res.send(movies.Genre);
+            console.log(movies);
+            res.send(movies);
         })
         .catch((err) => {
             console.error(err);
@@ -254,7 +260,11 @@ app.get('/movies/genre/:Name', passport.authenticate('jwt', {session: false }), 
 //READ
 //return data about a director
 app.get('/movies/director/:Name', passport.authenticate('jwt', {session: false }), (req, res) => {
-  Movies.findOne({ 'Director.Name': req.params.directorName })
+  Movies.findOne({ 'Director.Name': {
+        $regex: '^${req.params.Name}$',
+        $options: 'i',
+        },
+    })
     .then((movies) => {
         res.send(movies.Director);
     })
