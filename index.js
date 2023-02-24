@@ -36,8 +36,6 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const Genre = Models.Genre;
-const Director = Models.Director;
 
 /* the following code connects to the local database and can be used for testing purposes.
 mongoose.connect('mongodb://0.0.0.0:27017/cfdb', { useNewUrlParser:
