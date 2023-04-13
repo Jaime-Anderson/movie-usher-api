@@ -9,7 +9,7 @@ const { check, validationResult } = require('express-validator');
 //use CORS within application
 const cors = require('cors');
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://movieusher.netifly.app'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://movieusher.netlify.app'];
 
 app.use(cors({
     origin: (origin, callback) => {
